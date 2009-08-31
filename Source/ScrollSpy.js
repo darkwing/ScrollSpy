@@ -8,10 +8,10 @@ var ScrollSpy = new Class({
 		min: 0,
 		mode: 'vertical',
 		max: 0,
-		container: window /*,
+		container: window,
 		onEnter: $empty,
 		onLeave: $empty,
-		onTick: $empty */
+		onTick: $empty
 	},
 	
 	/* initialization */
