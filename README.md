@@ -25,4 +25,4 @@ ScrollSpy can be initialized at any time but is generally initialized at the top
 	});
 	
 
-For specific usage and options, please read the documentation or visit http://davidwalsh.name/js/scrollspy
+For specific usage and options, please read the documentation or visit [http://davidwalsh.name/js/scrollspy](http://davidwalsh.name/js/scrollspy)

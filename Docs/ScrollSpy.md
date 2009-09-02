@@ -15,9 +15,9 @@ ScrollSpy Method: constructor {#ScrollSpy:constructor}
 
 ### Notes:
 
-- *ScrollSpy* debuted Wednesday, May 27, 2009 on the David Walsh Blog:  http://davidwalsh.name/scrollspy
+- *ScrollSpy* debuted Wednesday, May 27, 2009 on the David Walsh Blog:  [http://davidwalsh.name/scrollspy](http://davidwalsh.name/scrollspy)
 - *ScrollSpy* requires MooTools Core only -- no MooTools More dependencies.
-- Visit http://davidwalsh.name/scrollspy for example usages.
+- Visit [http://davidwalsh.name/scrollspy](http://davidwalsh.name/scrollspy) for example usages.
 
 ### Syntax:
 
