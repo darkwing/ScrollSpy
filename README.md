@@ -3,6 +3,8 @@ ScrollSpy
 
 ScrollSpy is a small but powerful MooTools plugin that allows you to listen to scrolling within any DOM element and execute functions based upon the element's scroll position.
 
+![Screenshot](http://davidwalsh.name/dw-content/scrollspy.png)
+
 
 How to Use
 ----------
