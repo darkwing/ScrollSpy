@@ -26,3 +26,14 @@ ScrollSpy can be initialized at any time but is generally initialized at the top
 	
 
 For specific usage and options, please read the documentation or visit http://davidwalsh.name/scrollspy
+
+
+Options
+-------
+
+All options have default values assigned.
+
+* min - (*integer*, defaults to 0)  The minimum value of the X or Y coordinate, depending on mode.
+* mode - (*string*, defaults to 'vertical')  Defines whether to listen to X or Y scrolling.
+* max - (*integer*, defaults to 0)  The maximum value of the X or Y coordinate, depending on mode.
+* container - (*element*, defaults to window)  The element whose scrolling to listen to.
