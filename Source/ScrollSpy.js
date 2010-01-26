@@ -28,6 +28,7 @@ var ScrollSpy = new Class({
 		container: window,
 		onEnter: $empty,
 		onLeave: $empty,
+		onScroll: $empty,
 		onTick: $empty
 	},
 
@@ -52,10 +53,10 @@ var ScrollSpy = new Class({
 	addListener: function() {
 		/* state trackers */
 		this.inside = false;
-		this.container.addEvent('scroll',function() {
+		this.container.addEvent('scroll',function(e) {
 			/* if it has reached the level */
 			var position = this.container.getScroll();
-			var xy = this.options.mode == 'vertical' ? position.y : position.x;
+			var xy = position[this.options.mode == 'vertical' ? 'y' : 'x'];
 			/* if we reach the minimum and are still below the max... */
 			if(xy >= this.options.min && xy <= this.max) {
 					/* trigger Enter event if necessary */
@@ -64,19 +65,21 @@ var ScrollSpy = new Class({
 						this.inside = true;
 						this.enters++;
 						/* fire enter event */
-						this.fireEvent('enter',[position,this.enters]);
+						this.fireEvent('enter',[position,this.enters,e]);
 					}
 					/* trigger the "tick", always */
-					this.fireEvent('tick',[position,this.inside,this.enters,this.leaves]);
+					this.fireEvent('tick',[position,this.inside,this.enters,this.leaves,e]);
 			}
 			else {
 				/* trigger leave */
 				if(this.inside)  {
 					this.inside = false;
 					this.leaves++;
-					this.fireEvent('leave',[position,this.leaves]);
+					this.fireEvent('leave',[position,this.leaves,e]);
 				}
 			}
+			/* fire scroll event */
+			this.fireEvent('scroll',[position,this.inside,this.enters,this.leaves,e]);
 		}.bind(this));
 	}
 });

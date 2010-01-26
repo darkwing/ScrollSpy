@@ -46,12 +46,13 @@ ScrollSpy Method: constructor {#ScrollSpy:constructor}
 
 ### Signature
 
-	onEnter(position, enters)
+	onEnter(position, enters, event)
 	
 #### Arguments:
 
 1. position - (*object*) The container's scroll position object.
 2. enters - (*integer*) The number of times the scroll area has been entered.
+3. event - (*event*) The Event object from the main scroll event.
 
 
 ### leave
@@ -60,12 +61,29 @@ ScrollSpy Method: constructor {#ScrollSpy:constructor}
 
 ### Signature
 
-	onLeave(position, enters)
+	onLeave(position, leaves, event)
 	
 #### Arguments:
 
 1. position - (*object*) The container's scroll position object.
-2. enters - (*integer*) The number of times the scroll area has been left.
+2. leaves - (*integer*) The number of times the scroll area has been left.
+3. event - (*event*) The Event object from the main scroll event.
+
+### scroll
+
+* (*function*) Function to execute on each scroll event.
+
+### Signature
+
+	onTick(position, inside, enters, leaves, event)
+	
+#### Arguments:
+
+1. position - (*object*) The container's scroll position object.
+2. inside - (*boolean*) Represents whether or not the scroll is within the designated min and max area.
+3. enters - (*integer*) The number of enters.
+4. leaves - (*integer*) The number of leaves.
+5. event - (*event*) The Event object from the main scroll event.
 
 
 ### tick
@@ -74,12 +92,12 @@ ScrollSpy Method: constructor {#ScrollSpy:constructor}
 
 ### Signature
 
-	onTick(position, inside, enters, leave)
+	onTick(position, inside, enters, leaves, event)
 	
 #### Arguments:
 
 1. position - (*object*) The container's scroll position object.
 2. inside - (*boolean*) Represents whether or not the scroll is within the designated min and max area.
 3. enters - (*integer*) The number of enters.
-3. leaves - (*integer*) The number of leaves.
-
+4. leaves - (*integer*) The number of leaves.
+5. event - (*event*) The Event object from the main scroll event.
