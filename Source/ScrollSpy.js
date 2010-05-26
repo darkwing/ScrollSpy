@@ -22,14 +22,15 @@ var ScrollSpy = new Class({
 
 	/* options */
 	options: {
-		min: 0,
-		mode: 'vertical',
-		max: 0,
 		container: window,
+		max: 0,
+		min: 0,
+		mode: 'vertical'/*,
 		onEnter: $empty,
 		onLeave: $empty,
 		onScroll: $empty,
 		onTick: $empty
+		*/
 	},
 
 	/* initialization */
@@ -39,12 +40,8 @@ var ScrollSpy = new Class({
 		this.container = document.id(this.options.container);
 		this.enters = this.leaves = 0;
 		this.max = this.options.max;
-	
-		/* fix max */
-		if(this.max == 0) { 
-			var ss = this.container.getScrollSize();
-			this.max = this.options.mode == 'vertical' ? ss.y : ss.x;
-		}
+		this.inside = false;
+		
 		/* make it happen */
 		this.addListener();
 	},
@@ -52,13 +49,12 @@ var ScrollSpy = new Class({
 	/* a method that does whatever you want */
 	addListener: function() {
 		/* state trackers */
-		this.inside = false;
 		this.container.addEvent('scroll',function(e) {
 			/* if it has reached the level */
-			var position = this.container.getScroll();
-			var xy = position[this.options.mode == 'vertical' ? 'y' : 'x'];
+			var position = this.container.getScroll(),
+				xy = position[this.options.mode == 'vertical' ? 'y' : 'x'];
 			/* if we reach the minimum and are still below the max... */
-			if(xy >= this.options.min && xy <= this.max) {
+			if(xy >= this.options.min && (this.max == 0 || xy <= this.max)) {
 					/* trigger Enter event if necessary */
 					if(!this.inside) {
 						/* record as inside */
@@ -70,13 +66,11 @@ var ScrollSpy = new Class({
 					/* trigger the "tick", always */
 					this.fireEvent('tick',[position,this.inside,this.enters,this.leaves,e]);
 			}
-			else {
-				/* trigger leave */
-				if(this.inside)  {
-					this.inside = false;
-					this.leaves++;
-					this.fireEvent('leave',[position,this.leaves,e]);
-				}
+			/* trigger leave */
+			else if(this.inside){
+				this.inside = false;
+				this.leaves++;
+				this.fireEvent('leave',[position,this.leaves,e]);
 			}
 			/* fire scroll event */
 			this.fireEvent('scroll',[position,this.inside,this.enters,this.leaves,e]);
