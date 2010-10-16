@@ -12,16 +12,17 @@ How to Use
 ScrollSpy can be initialized at any time but is generally initialized at the top of the document during the page's normal load.  There are no required arguments -- only options.
 
 	#JS
+	/* my "Go To Top" link element */
+	var link = document.id('gototop');
 	/* scrollspy instance */
 	var ss = new ScrollSpy({
 		min: 300,
 		onEnter: function() {
-			$('gototop').fade('in'); //show the "Go To Top" link
+			link.fade('in'); //show the "Go To Top" link
 		},
 		onLeave: function() {
-			$('gototop').fade('out'); //hide the "Go To Top" link
-		},
-		container: window
+			link.fade('out'); //hide the "Go To Top" link
+		}
 	});
 	
 

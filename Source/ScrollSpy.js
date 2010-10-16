@@ -39,41 +39,53 @@ var ScrollSpy = new Class({
 		this.setOptions(options);
 		this.container = document.id(this.options.container);
 		this.enters = this.leaves = 0;
-		this.max = this.options.max;
 		this.inside = false;
+		
+		/* listener */
+		var self = this;
+		this.listener = function(e) {
+			/* if it has reached the level */
+			var position = self.container.getScroll(),
+				xy = position[self.options.mode == 'vertical' ? 'y' : 'x'];
+			/* if we reach the minimum and are still below the max... */
+			if(xy >= self.options.min && (self.options.max == 0 || xy <= self.options.max)) {
+					/* trigger enter event if necessary */
+					if(!self.inside) {
+						/* record as inside */
+						self.inside = true;
+						self.enters++;
+						/* fire enter event */
+						self.fireEvent('enter',[position,self.enters,e]);
+					}
+					/* trigger the "tick", always */
+					self.fireEvent('tick',[position,self.inside,self.enters,self.leaves,e]);
+			}
+			/* trigger leave */
+			else if(self.inside){
+				self.inside = false;
+				self.leaves++;
+				self.fireEvent('leave',[position,self.leaves,e]);
+			}
+			/* fire scroll event */
+			self.fireEvent('scroll',[position,self.inside,self.enters,self.leaves,e]);
+		};
 		
 		/* make it happen */
 		this.addListener();
 	},
+	
+	/* starts the listener */
+	start: function() {
+		this.container.addEvent('scroll',this.listener);
+	},
+	
+	/* stops the listener */
+	stop: function() {
+		this.container.removeEvent('scroll',this.listener);
+	},
 
-	/* a method that does whatever you want */
+	/* legacy */
 	addListener: function() {
-		/* state trackers */
-		this.container.addEvent('scroll',function(e) {
-			/* if it has reached the level */
-			var position = this.container.getScroll(),
-				xy = position[this.options.mode == 'vertical' ? 'y' : 'x'];
-			/* if we reach the minimum and are still below the max... */
-			if(xy >= this.options.min && (this.max == 0 || xy <= this.max)) {
-					/* trigger Enter event if necessary */
-					if(!this.inside) {
-						/* record as inside */
-						this.inside = true;
-						this.enters++;
-						/* fire enter event */
-						this.fireEvent('enter',[position,this.enters,e]);
-					}
-					/* trigger the "tick", always */
-					this.fireEvent('tick',[position,this.inside,this.enters,this.leaves,e]);
-			}
-			/* trigger leave */
-			else if(this.inside){
-				this.inside = false;
-				this.leaves++;
-				this.fireEvent('leave',[position,this.leaves,e]);
-			}
-			/* fire scroll event */
-			this.fireEvent('scroll',[position,this.inside,this.enters,this.leaves,e]);
-		}.bind(this));
+		this.start();
 	}
 });
