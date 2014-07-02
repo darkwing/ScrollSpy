@@ -26,10 +26,10 @@ var ScrollSpy = new Class({
 		max: 0,
 		min: 0,
 		mode: 'vertical'/*,
-		onEnter: $empty,
-		onLeave: $empty,
-		onScroll: $empty,
-		onTick: $empty
+		onEnter: function() {},
+		onLeave: function() {},
+		onScroll: function() {},
+		onTick: function() {}
 		*/
 	},
 
